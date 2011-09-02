@@ -14,10 +14,10 @@
 	<context:annotation-config/>
 	<context:component-scan base-package="com.darinpope"/>
 
-    <bean id="clustering" class="com.darinpope.util.Clustering"
+    <bean id="toolkit" class="com.darinpope.util.TerracottaToolkitFactoryBean"
           p:terracottaConfigUrl="${terracottaConfigUrl}" />
 
-    <bean id="thisIsTheTestRequestQueue" class="com.darinpope.util.TerracottaBlockingQueue"
+    <bean id="thisIsTheTestRequestQueue" class="com.darinpope.util.TerracottaBlockingQueueFactoryBean"
           p:name="thisIsTheTestRequest" />
 
     <ehcache:annotation-driven cache-manager="referenceDataCacheManager" />
@@ -27,7 +27,7 @@
           p:cacheManager-ref="referenceDataCacheManager"
           p:cacheName="CountryCache" />
 
-    <bean id="testTerracottaAtomicLong" class="com.darinpope.util.TerracottaAtomicLong"
+    <bean id="testTerracottaAtomicLong" class="com.darinpope.util.TerracottaAtomicLongFactoryBean"
           p:name="testTerracottaAtomicLong" />
 
 </beans>
