@@ -1,0 +1,9 @@
+<ehcache name="ReferenceDataCacheManager">
+    <terracottaConfig url="${terracottaConfigUrl}" />
+    <cache name="CountryCache"
+        eternal="false"
+        maxElementsInMemory="5000"
+        maxElementsOnDisk="125000">
+        <terracotta consistency="eventual" concurrency="256" />
+    </cache>
+</ehcache>
