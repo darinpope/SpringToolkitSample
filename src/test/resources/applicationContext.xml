@@ -17,12 +17,8 @@
     <bean id="clustering" class="com.darinpope.util.Clustering"
           p:terracottaConfigUrl="${terracottaConfigUrl}" />
 
-    <bean id="sdpNotificationListRequestQueue" class="com.darinpope.util.TerracottaBlockingQueue"
-          p:name="sdpNotificationListRequest" />
-
-    <bean id="sdpNotificationDeleteRequestQueue" class="com.darinpope.util.TerracottaBlockingQueue"
-          p:name="sdpNotificationDeleteRequest"
-          p:capacity="100"/>
+    <bean id="thisIsTheTestRequestQueue" class="com.darinpope.util.TerracottaBlockingQueue"
+          p:name="thisIsTheTestRequest" />
 
     <ehcache:annotation-driven cache-manager="referenceDataCacheManager" />
     <bean id="referenceDataCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
