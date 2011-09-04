@@ -1,16 +1,17 @@
 package com.darinpope.util;
 
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
-import org.terracotta.api.ClusteringToolkit;
+import org.terracotta.api.ClusteringToolkitExtension;
 import org.terracotta.util.ClusteredAtomicLong;
 
-public class TerracottaAtomicLongFactoryBean implements InitializingBean, FactoryBean {
+public class TerracottaAtomicLongFactoryBean implements InitializingBean, FactoryBean, DisposableBean {
 
   @Autowired
-  private ClusteringToolkit toolkit;
+  private ClusteringToolkitExtension toolkit;
 
   private String name;
 
@@ -35,5 +36,9 @@ public class TerracottaAtomicLongFactoryBean implements InitializingBean, Factor
 
   public void afterPropertiesSet() throws Exception {
     clusteredAtomicLong = toolkit.getAtomicLong(name);
+  }
+
+  public void destroy() throws Exception {
+    toolkit.unregisterAtomicLong(name);
   }
 }

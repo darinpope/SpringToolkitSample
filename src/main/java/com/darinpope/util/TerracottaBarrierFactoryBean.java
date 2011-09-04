@@ -1,16 +1,17 @@
 package com.darinpope.util;
 
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
-import org.terracotta.api.ClusteringToolkit;
+import org.terracotta.api.ClusteringToolkitExtension;
 import org.terracotta.coordination.Barrier;
 
-public class TerracottaBarrierFactoryBean implements InitializingBean, FactoryBean {
+public class TerracottaBarrierFactoryBean implements InitializingBean, FactoryBean, DisposableBean {
 
   @Autowired
-  private ClusteringToolkit toolkit;
+  private ClusteringToolkitExtension toolkit;
 
   private String name;
 
@@ -42,5 +43,9 @@ public class TerracottaBarrierFactoryBean implements InitializingBean, FactoryBe
 
   public void afterPropertiesSet() throws Exception {
     barrier =  toolkit.getBarrier(name,parties);
+  }
+
+  public void destroy() throws Exception {
+    toolkit.unregisterBarrier(name);
   }
 }

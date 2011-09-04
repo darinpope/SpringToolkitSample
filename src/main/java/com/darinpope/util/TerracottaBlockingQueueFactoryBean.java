@@ -1,17 +1,18 @@
 package com.darinpope.util;
 
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
-import org.terracotta.api.ClusteringToolkit;
+import org.terracotta.api.ClusteringToolkitExtension;
 
 import java.util.concurrent.BlockingQueue;
 
-public class TerracottaBlockingQueueFactoryBean implements InitializingBean, FactoryBean {
+public class TerracottaBlockingQueueFactoryBean implements InitializingBean, FactoryBean, DisposableBean {
 
   @Autowired
-  private ClusteringToolkit toolkit;
+  private ClusteringToolkitExtension toolkit;
 
   private String name;
 
@@ -46,5 +47,9 @@ public class TerracottaBlockingQueueFactoryBean implements InitializingBean, Fac
     } else {
       queue = toolkit.getBlockingQueue(name);
     }
+  }
+
+  public void destroy() throws Exception {
+    toolkit.unregisterBlockingQueue(name);
   }
 }

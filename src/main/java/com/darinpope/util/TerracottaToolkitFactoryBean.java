@@ -5,6 +5,7 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Required;
 import org.terracotta.api.ClusteringToolkit;
+import org.terracotta.api.ClusteringToolkitExtension;
 import org.terracotta.api.TerracottaClient;
 
 public class TerracottaToolkitFactoryBean implements InitializingBean, FactoryBean, DisposableBean {
@@ -16,7 +17,7 @@ public class TerracottaToolkitFactoryBean implements InitializingBean, FactoryBe
     this.terracottaConfigUrl = terracottaConfigUrl;
   }
 
-  private ClusteringToolkit clusteringToolkit;
+  private ClusteringToolkitExtension clusteringToolkit;
 
   private TerracottaClient terracottaClient;
 
@@ -34,7 +35,7 @@ public class TerracottaToolkitFactoryBean implements InitializingBean, FactoryBe
 
   public void afterPropertiesSet() throws Exception {
     terracottaClient =  new TerracottaClient(terracottaConfigUrl);
-    clusteringToolkit = terracottaClient.getToolkit();
+    clusteringToolkit = (ClusteringToolkitExtension) terracottaClient.getToolkit();
   }
 
   public void destroy() throws Exception {
