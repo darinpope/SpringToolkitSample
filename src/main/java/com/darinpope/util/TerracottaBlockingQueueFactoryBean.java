@@ -50,6 +50,8 @@ public class TerracottaBlockingQueueFactoryBean implements InitializingBean, Fac
   }
 
   public void destroy() throws Exception {
-    toolkit.unregisterBlockingQueue(name);
+    if(toolkit != null && toolkit.getClusterInfo() != null && toolkit.getClusterInfo().areOperationsEnabled()) {
+      toolkit.unregisterBlockingQueue(name);
+    }
   }
 }

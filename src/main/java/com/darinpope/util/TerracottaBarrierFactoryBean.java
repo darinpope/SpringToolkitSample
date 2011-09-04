@@ -46,6 +46,8 @@ public class TerracottaBarrierFactoryBean implements InitializingBean, FactoryBe
   }
 
   public void destroy() throws Exception {
-    toolkit.unregisterBarrier(name);
+    if(toolkit != null && toolkit.getClusterInfo() != null && toolkit.getClusterInfo().areOperationsEnabled()) {
+      toolkit.unregisterBarrier(name);
+    }
   }
 }

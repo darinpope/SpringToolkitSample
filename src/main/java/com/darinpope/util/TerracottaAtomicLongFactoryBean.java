@@ -39,6 +39,8 @@ public class TerracottaAtomicLongFactoryBean implements InitializingBean, Factor
   }
 
   public void destroy() throws Exception {
-    toolkit.unregisterAtomicLong(name);
+    if(toolkit != null && toolkit.getClusterInfo() != null && toolkit.getClusterInfo().areOperationsEnabled()) {
+      toolkit.unregisterAtomicLong(name);
+    }
   }
 }
