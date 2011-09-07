@@ -5,7 +5,7 @@ apply plugin: 'application'
 
 springVersion = "3.0.5.RELEASE"
 slf4jVersion = "1.6.1"
-ehcacheVersion = "2.4.4"
+ehcacheVersion = "2.4.5"
 terracottaCommonVersion = "3.2.0"
 
 repositories {

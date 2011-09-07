@@ -1,6 +1,7 @@
 package com.darinpope.util;
 
 
+import org.apache.commons.lang.SerializationUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -25,7 +26,7 @@ public class TestTerracottaBlockingQueue {
   @Test
   public void putToQueue() {
     try {
-      queue.put(serializeMyObject("addToQueue"));
+      queue.put(SerializationUtils.serialize("addToQueue"));
     } catch (Exception e) {
       fail(e.getMessage());
     }
@@ -34,28 +35,10 @@ public class TestTerracottaBlockingQueue {
   @Test
   public void takeFromQueue() {
     try {
-      String fi = deserializeMyObject(queue.take());
+      String fi = (String) SerializationUtils.deserialize(queue.take());
       assertEquals("addToQueue wasn't on the queue","addToQueue",fi);
     } catch (Exception e) {
       fail(e.getMessage());
-    }
-  }
-
-  private byte[] serializeMyObject(String mo) throws IOException {
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    ObjectOutputStream oos = new ObjectOutputStream(baos);
-    oos.writeObject(mo);
-    return baos.toByteArray();
-  }
-
-  private String deserializeMyObject(byte[] take) {
-    try {
-      return (String) new ObjectInputStream(new ByteArrayInputStream(
-          take)).readObject();
-    } catch (IOException e) {
-      throw new AssertionError(e);
-    } catch (ClassNotFoundException e) {
-      throw new AssertionError(e);
     }
   }
 
