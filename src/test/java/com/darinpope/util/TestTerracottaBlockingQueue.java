@@ -26,7 +26,7 @@ public class TestTerracottaBlockingQueue {
   @Test
   public void putToQueue() {
     try {
-      queue.put(SerializationUtils.serialize("addToQueue"));
+      queue.add(SerializationUtils.serialize("addToQueue"));
     } catch (Exception e) {
       fail(e.getMessage());
     }
