@@ -4,7 +4,6 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Required;
-import org.terracotta.api.ClusteringToolkit;
 import org.terracotta.api.ClusteringToolkitExtension;
 import org.terracotta.api.TerracottaClient;
 
@@ -26,7 +25,7 @@ public class TerracottaToolkitFactoryBean implements InitializingBean, FactoryBe
   }
 
   public Class<?> getObjectType() {
-    return (clusteringToolkit != null ? clusteringToolkit.getClass() : ClusteringToolkit.class);
+    return (clusteringToolkit != null ? clusteringToolkit.getClass() : ClusteringToolkitExtension.class);
   }
 
   public boolean isSingleton() {
