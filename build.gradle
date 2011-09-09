@@ -5,16 +5,23 @@ apply plugin: 'application'
 
 springVersion = "3.0.5.RELEASE"
 slf4jVersion = "1.6.1"
+/*
 ehcacheVersion = "2.4.5"
+terracottaToolkitVersion = "1.3"
 terracottaCommonVersion = "3.2.0"
+*/
+ehcacheVersion = "2.5.0-SNAPSHOT"
+terracottaToolkitVersion = "1.4"
+terracottaCommonVersion = "4.0.0-SNAPSHOT"
+
 
 repositories {
   mavenCentral()
-  mavenRepo urls: ["http://repo.terracotta.org/maven2"]
+  mavenRepo urls: ["http://repo.terracotta.org/maven2","http://snapshots.terracotta.org"]
 }
 
 test {
-  jvmArgs = ["-DterracottaConfigUrl=localhost:9510","-Dcom.tc.productkey.path=/Users/dpope/Tools/Terracotta/terracotta-license.key"]
+  jvmArgs = ["-DterracottaConfigUrl=localhost:9510","-Dcom.tc.productkey.path=/Users/darinpope/Tools/Terracotta/terracotta-license.key"]
 }
 
 dependencies {
@@ -23,7 +30,7 @@ dependencies {
   compile "org.springframework:spring-context-support:$springVersion"
   compile "org.springframework:spring-context:$springVersion"
   compile "net.sf.ehcache:ehcache-core-ee:$ehcacheVersion"
-  compile "org.terracotta:terracotta-toolkit-1.3-runtime-ee:$terracottaCommonVersion"
+  compile "org.terracotta:terracotta-toolkit-$terracottaToolkitVersion-runtime-ee:$terracottaCommonVersion"
   compile "log4j:log4j:1.2.16"
   compile "commons-lang:commons-lang:2.6"
   compile ("com.googlecode.ehcache-spring-annotations:ehcache-spring-annotations:1.1.3") {
